@@ -12,12 +12,12 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 ### Download Demo files
 ```
-download command
+Coming Soon!
 ```
 
 ### Citation
 ```
-Coming soon!
+Coming Soon!
 ```
 
 
