@@ -4,7 +4,7 @@
 \[[Project Page](https://jlogkim.github.io/parahome/)\] \[[Paper](somelink)\] \[[Supp. Video](https://www.youtube.com/embed/HeXqiK0eGec?si=mtAmctx0JHHYD6Ac)\]
 
 
-![[teaser1117_1.jpg]]
+![[assets/teaser.jpg]]
 
 
 ### Demo Files
