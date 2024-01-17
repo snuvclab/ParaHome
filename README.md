@@ -3,18 +3,18 @@
 > [Jeonghwan Kim*](https://hwansub.github.io), [Jisoo Kim*](https://jlogkim.github.io/), [Jeonghyun Na](https://nagooon.github.io/), [Hanbyul Joo](https://jhugestar.github.io/)  
 \[[Project Page](https://jlogkim.github.io/parahome/)\] \[[Paper](somelink)\] \[[Supp. Video](https://www.youtube.com/embed/HeXqiK0eGec?si=mtAmctx0JHHYD6Ac)\]
 
-
-![[assets/teaser.jpg]]
-
-
-### Demo Files
-
-
-### Visualization
-Below requires Open3D, Blender to render in current view
+<p align="center">    
+    <img src="assets/teaser.jpg" alt="Image" width="100%"/>
+</p>
+This is a repository of the ParaHome system. Our system is designed to capture human-object interaction in a natural home environment. We parameterized all 3D movements of body, hands, and objects and captured large-scale dataset for human-object interaction.
 
 
-# Coming Soon
+
+### Download Demo files
+```
+download command
+```
+
 
 
 ### Acknowledgement
