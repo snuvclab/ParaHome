@@ -17,7 +17,14 @@ Coming Soon!
 
 ### Citation
 ```
-Coming Soon!
+@misc{kim2024parahome,
+      title={ParaHome: Parameterizing Everyday Home Activities Towards 3D Generative Modeling of Human-Object Interactions}, 
+      author={Jeonghwan Kim and Jisoo Kim and Jeonghyeon Na and Hanbyul Joo},
+      year={2024},
+      eprint={2401.10232},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
 ```
 
 
