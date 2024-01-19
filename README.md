@@ -1,7 +1,7 @@
 # ParaHome 
 > ParaHome: Parameterizing Everyday Home Activities Towards 3D Generative Modeling of Human-Object Interactions (arXiv 2024)  
 > [Jeonghwan Kim*](https://hwansub.github.io), [Jisoo Kim*](https://jlogkim.github.io/), [Jeonghyun Na](https://nagooon.github.io/), [Hanbyul Joo](https://jhugestar.github.io/)  
-\[[Project Page](https://jlogkim.github.io/parahome/)\] \[[Paper](somelink)\] \[[Supp. Video](https://www.youtube.com/embed/HeXqiK0eGec?si=mtAmctx0JHHYD6Ac)\]
+\[[Project Page](https://jlogkim.github.io/parahome/)\] \[[Paper](https://arxiv.org/pdf/2401.10232.pdf)\] \[[Supp. Video](https://www.youtube.com/embed/HeXqiK0eGec?si=mtAmctx0JHHYD6Ac)\]
 
 <p align="center">    
     <img src="assets/teaser.jpg" alt="Image" width="100%"/>
