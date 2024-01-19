@@ -29,6 +29,5 @@ Coming Soon!
 
 
 ### Acknowledgement
-```
 This work was supported by Samsung Electronics MX Division, NRF grant funded by the Korean government (MSIT) (No. 2022R1A2C2092724 and No. RS-2023-00218601), and IITP grant funded by the Korean government (MSIT) (No.2021-0-01343). H. Joo is the corresponding author.
-```
+
