@@ -31,7 +31,8 @@ unzip and move scan, seq directories into data directory
 └── └── seq
 ```
 
-
+### Environment Setting
+Check out [install.md](./install.md)
 
 ### Visualize Demo files
 To visualize the demo parahome data, select sequence path in the data/seq directory and execute the command 
