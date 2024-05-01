@@ -18,7 +18,7 @@ mkdir data
 ```
 Download demo files  
 scan : https://drive.google.com/file/d/1-OuWvVFOFCEhut7J2t1kNbr5jv78QNFP/view?usp=sharing  
-seq : [https://drive.google.com/file/d/1RvRjiyAlWDipZQXnuwtrvvTd1y2ti8mG/view?usp=sharing  ](https://drive.google.com/file/d/1RvRjiyAlWDipZQXnuwtrvvTd1y2ti8mG/view?usp=sharing)
+seq : https://drive.google.com/file/d/185dpSFm6afvG0wpgWLZrPsAOxuzMdbfb/view?usp=sharing
 
   
 unzip and move scan, seq directories into data directory
