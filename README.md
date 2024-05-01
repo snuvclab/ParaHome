@@ -37,7 +37,7 @@ unzip and move scan, seq directories into data directory
 To visualize the demo parahome data, select sequence path in the data/seq directory and execute the command 
 ```
 cd visualize
-python render.py --scene_root /YOUR_REPOSITORY_PATH/parahome/data/seq/s01
+python render.py --scene_root /PROJECT_PATH/data/seq/s01
 ```
 
 
