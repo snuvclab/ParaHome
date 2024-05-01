@@ -18,17 +18,17 @@ mkdir data
 ```
 Download demo files  
 scan : https://drive.google.com/file/d/1-OuWvVFOFCEhut7J2t1kNbr5jv78QNFP/view?usp=sharing  
-seq : https://drive.google.com/file/d/1RvRjiyAlWDipZQXnuwtrvvTd1y2ti8mG/view?usp=sharing  
+seq : [https://drive.google.com/file/d/1RvRjiyAlWDipZQXnuwtrvvTd1y2ti8mG/view?usp=sharing  ](https://drive.google.com/file/d/1RvRjiyAlWDipZQXnuwtrvvTd1y2ti8mG/view?usp=sharing)
 
   
 unzip and move scan, seq directories into data directory
 ```
-root
----- assets
----- visualize
----- data
-     ---- scan
-     ---- seq
+.
+├── assets
+├── visualize
+├── data
+│   ├── scan
+└── └── seq
 ```
 
 
@@ -37,7 +37,7 @@ root
 To visualize the demo parahome data, select sequence path in the data/seq directory and execute the command 
 ```
 cd visualize
-python render.py --scene_root /YOUR_REPOSITORY_PATH/parahome_dist/data/seq/s01
+python render.py --scene_root /YOUR_REPOSITORY_PATH/parahome/data/seq/s01
 ```
 
 
