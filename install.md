@@ -1,6 +1,6 @@
-conda create -n parahome python=3.9
-conda activate parahome
-pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118
+conda create -n parahome python=3.9  
+conda activate parahome  
+pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2 --index-url https://download.pytorch.org/whl/cu118  
 
 # Install pytorch3D (It's just for debug visualization.)
 conda install -c fvcore -c iopath -c conda-forge fvcore iopath
