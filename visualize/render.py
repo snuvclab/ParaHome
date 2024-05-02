@@ -1,16 +1,21 @@
+from __init__ import *
+
+import os
 import json
 import pickle
 import argparse
+import torch
 from pathlib import Path
-from utils import *
+import open3d as o3d
 
-SCAN_ROOT = "../data/scan"
+from utils import makeTpose, rotation_6d_to_matrix, BodyMaker, HandMaker, \
+                    simpleViewer, get_stickman, get_stickhand
 
-
+SCAN_ROOT = os.path.join(ROOT_REPOSITORY, "data/scan")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scene_root", default="./data/seq/s01", help="target path, e.g : ")
+    parser.add_argument("--scene_root", default="data/seq/s01", help="target path, e.g : ")
     parser.add_argument("--start_frame", default=0, type=int, help="Render start frame number") 
     parser.add_argument("--end_frame", default=100000, type=int, help="Render end frame number")
     parser.add_argument("--run", default=False, action='store_true', help='If set, viewer will show start_frame scene at specific view')
@@ -18,8 +23,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    root =  args.scene_root
-    camera_dir = args.scene_root + "/cam_param"
+    scene_root = os.path.join(ROOT_REPOSITORY, "data/seq/s01")
+    root =  scene_root
+    camera_dir = scene_root + "/cam_param"
 
     
     head_tip_position = pickle.load(open(root + "/head_tips.pkl", "rb"))
@@ -48,8 +54,8 @@ if __name__ == "__main__":
 
     
 
-
-    obj_color = json.load(open("color.json", "r"))
+    os.path.dirname(__file__)
+    obj_color = json.load(open(os.path.join(ROOT_REPOSITORY,"visualize/color.json"), "r"))
     object_transform = pickle.load(open(root + "/object_transformations.pkl", "rb"))
 
     
