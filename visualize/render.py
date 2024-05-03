@@ -23,8 +23,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     
-    scene_root = os.path.join(ROOT_REPOSITORY, "data/seq/s01")
-    root =  scene_root
+    root = os.path.join(ROOT_REPOSITORY, args.scene_root)
     camera_dir = scene_root + "/cam_param"
 
     
