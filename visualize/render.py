@@ -25,7 +25,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     root = os.path.join(ROOT_REPOSITORY, args.scene_root)
-    camera_dir = scene_root + "/cam_param"
+    camera_dir = root + "/cam_param"
 
     
     head_tip_position = pickle.load(open(root + "/head_tips.pkl", "rb"))
