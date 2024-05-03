@@ -7,6 +7,7 @@ import argparse
 import torch
 from pathlib import Path
 import open3d as o3d
+import numpy as np
 
 from utils import makeTpose, rotation_6d_to_matrix, BodyMaker, HandMaker, \
                     simpleViewer, get_stickman, get_stickhand
