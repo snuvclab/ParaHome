@@ -53,6 +53,7 @@ if __name__ == "__main__":
         joint_rgb = pickle.load(open(root + "/joint_positions.pkl", "rb"))
 
     
+    frame_length = joint_rgb.shape[0]
 
     os.path.dirname(__file__)
     obj_color = json.load(open(os.path.join(ROOT_REPOSITORY,"visualize/color.json"), "r"))
@@ -80,10 +81,13 @@ if __name__ == "__main__":
     global_coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=0.2)
     vis.add_geometry({"name":"global", "geometry":global_coord})    
     vis.add_plane()
-    for fn in range(args.start_frame, args.end_frame+1):
+    for fn in range(args.start_frame, min(args.end_frame+1, frame_length)):
         """
         Head tip position 
         """
+        if fn not in object_transform:
+            continue
+
         cur_human_joints = joint_rgb[fn]
         
         cur_object_pose = object_transform[fn]
