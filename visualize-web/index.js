@@ -3,7 +3,7 @@ import { renderSequence } from "./render-sequence.js";
 async function main() {
   const urlParams = new URLSearchParams(window.location.search);
 
-  const sequenceName = urlParams.get("dir");
+  const sequenceName = urlParams.get("seq");
 
   const sequenceNameDiv = document.querySelector(".sequence_name");
 
