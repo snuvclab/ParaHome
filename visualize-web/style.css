@@ -1,0 +1,28 @@
+.page{
+    text-align: center;
+    width: 100%;
+}
+
+.parent {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.child {
+    flex: 1 0 auto;
+    display: inline-block;
+}
+
+.num {
+    margin-left: 3px;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+

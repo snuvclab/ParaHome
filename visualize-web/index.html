@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<link href="./style.css" rel="stylesheet" />
+	<script type="importmap">
+		{
+		  "imports": {
+			"three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+			"three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+		  }
+		}
+	  </script>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<script type="module" src="./index.js"></script>
+</head>
+<style>
+</style>
+
+<body>
+	<h1>
+		Sequence Detail
+	</h1>
+	<div class="flex flex-row gap-x-20">
+		<div class="sequence_name"></div>
+		<div class="tags"></div>
+	</div>
+	<div class="p-[10px] w-[1000px] relative">
+		<canvas class="canvas1 w-full"></canvas>
+		<div class="h-[3px] w-full bg-gray-400 mt-[10px] relative progress-bar-bg">
+			<div class="bg-red-700 absolute h-full w-0 progress-bar-fill">
+			</div>
+			<div
+				class="absolute top-1/2 left-0 transform -translate-y-1/2 flex justify-center items-center progress-bar-thumb">
+				<div class="rounded-full bg-black w-[10px] h-[10px]">
+				</div>
+			</div>
+		</div>
+		<div class="flex flex-row w-full mb-[10px]">
+			<div class="current_frame mr-auto"></div>
+			<div class="total_frames"></div>
+		</div>
+		<div class="post_process_button_container flex gap-4 w-full flex-wrap mb-[10px]">
+		</div>
+		<div class="camera_button_container flex gap-4 w-full flex-wrap">
+
+		</div>
+		<div class="is_loading absolute flex justify-center items-center top-0 w-full h-full">
+			<div class="is_loading_text p-[10px] bg-yellow-500 rounded-[10px] inline-flex">
+				Loading...
+			</div>
+		</div>
+	</div>
+
+
+</body>
+
+</html>
