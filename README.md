@@ -13,7 +13,9 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 - 2024.05.01: Parahome demo data is available!
 - 2024.08.29: 🎉 ParaHome Dataset is Released! 🎉
 
+
 ## Important Notes
+- The text descriptions for each action are formatted into the `text_annotation.json` file located within each scene directory.
 - Items retrieved from the under-sink cabinet are filled manually due to the absence of cameras inside the cabinet. Thus, some of data may not accurately be physically aligned with its actual location, and some penetration errors may occur.
 
 
