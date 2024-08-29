@@ -28,7 +28,7 @@ seq : https://drive.google.com/file/d/1-P5sz_IBjSKr4fxt6KygicxTLJ772Z4j/view?usp
 demo : https://drive.google.com/file/d/1hx3p3uOLEmGoCsaZ_x5ibffuX4zLiq6s/view?usp=sharing  
 metadata : https://drive.google.com/file/d/1jPRCsotiep0nElHgyLQNjlkHsWgHbjhi/view?usp=sharing
   
-Unzip and move scan, seq directories into data directory
+Unzip and move scan, seq directories into `data` directory
 ```
 .
 ├── assets
