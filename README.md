@@ -26,7 +26,7 @@ mkdir data
 scan : https://drive.google.com/file/d/1-OuWvVFOFCEhut7J2t1kNbr5jv78QNFP/view?usp=sharing  
 seq : https://drive.google.com/file/d/1-P5sz_IBjSKr4fxt6KygicxTLJ772Z4j/view?usp=sharing   
 demo : https://drive.google.com/file/d/1hx3p3uOLEmGoCsaZ_x5ibffuX4zLiq6s/view?usp=sharing  
-
+metadata : https://drive.google.com/file/d/1jPRCsotiep0nElHgyLQNjlkHsWgHbjhi/view?usp=sharing
   
 Unzip and move scan, seq directories into data directory
 ```
@@ -36,7 +36,33 @@ Unzip and move scan, seq directories into data directory
 ├── data
 │   ├── scan
 └── └── seq
+│       ├── s1 ~ s207
+│       └── ├── text_annotations.json
+│       └── ├── object_transformations.pkl
+│       └── ├── object_in_scene.json
+│       └── ├── joint_states.pkl
+│       └── ├── joint_positions.pkl
+│       └── ├── head_tips.pkl
+│       └── ├── hand_joint_orientations.pkl
+│       └── ├── bone_vectors.pkl
+│       └── ├── body_joint_orientations.pkl
+│       └── └── body_global_transform.pkl
+└── ─── metadata.json
+
 ```
+Each data represents
+
+- text_annotations.json : Action descriptions at each frame interval of sequences
+- object_transformations.pkl : per-frame transformations of each object in the scene
+- object_in_scene.json : Indicator of whether object is in the scene or not
+- joint_states.pkl : Joint state(either radian for revolute part or meter for prismatic part) of each part of the articulated objects
+- joint_positions.pkl : Joint global positions of capture participants
+- head_tips.pkl : Head tip position of participants (head size is assumed)
+- hand_joint_orientations.pkl : Joint orientation of each hand joint in hand-centered coordinate system
+- bone_vectors.pkl : T-Pose (with no orientation applied) with each bone length applied
+- body_joint_orientations.pkl : Joint orientation of each body joint in body-centered coordinate system
+- body_global_transform.pkl : Transform between body-centered coordinate and global coordinate system
+- metadata.json : Mapping between capture participants to each sequence
 
 ### Environment Setting
 Check out [install.md](./install.md)
@@ -45,7 +71,7 @@ Check out [install.md](./install.md)
 To visualize the demo parahome data, select sequence path in the data/seq directory and execute the command 
 ```
 cd visualize
-python render.py --scene_root data/seq/s01
+python render.py --scene_root data/seq/s1
 ```
 
 
