@@ -10,18 +10,23 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 
 ### News
-- 🎊 Parahome demo data is available! 
-  
-### Download Demo files
+- 2024.05.01: Parahome demo data is available!
+- 2024.08.29: 🎉 ParaHome Dataset is Released! 🎉
+
+## Important Notes
+- Items retrieved from the under-sink cabinet are filled manually due to the absence of cameras inside the cabinet. Thus, some of data may not accurately be physically aligned with its actual location, and some penetration errors may occur.
+
+
+### Download ParaHome Data
 ```
 mkdir data
-```
-Download demo files  
+```  
 scan : https://drive.google.com/file/d/1-OuWvVFOFCEhut7J2t1kNbr5jv78QNFP/view?usp=sharing  
-seq : https://drive.google.com/file/d/185dpSFm6afvG0wpgWLZrPsAOxuzMdbfb/view?usp=sharing
+seq : https://drive.google.com/file/d/1-P5sz_IBjSKr4fxt6KygicxTLJ772Z4j/view?usp=sharing   
+demo : https://drive.google.com/file/d/1hx3p3uOLEmGoCsaZ_x5ibffuX4zLiq6s/view?usp=sharing  
 
   
-unzip and move scan, seq directories into data directory
+Unzip and move scan, seq directories into data directory
 ```
 .
 ├── assets
