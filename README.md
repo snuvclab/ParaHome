@@ -10,8 +10,8 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 
 ### News
-- 2024.05.01: Parahome demo data is available!
-- 2024.08.29: 🎉 ParaHome Dataset is Released! 🎉
+- 2024.08.29: 🎉 ParaHome dataset has been released! 🎉
+- 2024.05.01: ParaHome demo data is available!
 
 
 ## Important Notes
