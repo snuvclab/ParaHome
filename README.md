@@ -9,9 +9,20 @@
 This is a repository of the ParaHome system. Our system is designed to capture human-object interaction in a natural home environment. We parameterized all 3D movements of body, hands, and objects and captured large-scale dataset for human-object interaction.
 
 
-### News
+## News
 - 2024.08.29: 🎉 ParaHome dataset has been released! 🎉
 - 2024.05.01: ParaHome demo data is available!
+
+## Characteristics
+- Total <b>486</b> minutes, <b>207</b> sequences from <b>38</b> subjects!
+- Human Objects Interaction in a <b>natural room setting.</b>
+- Dexterous hand manipulation and body motion data.
+- Interaction with <b>multiple articulated</b> objects.
+- Capture <b>natural sequential</b> manipulation scenes.
+- <b>Text annotations</b> for each action
+  
+
+  
 
 
 ## Important Notes
@@ -19,7 +30,7 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 - Items retrieved from the under-sink cabinet are filled manually due to the absence of cameras inside the cabinet. Thus, some of data may not accurately be physically aligned with its actual location, and some penetration errors may occur.
 
 
-### Download ParaHome Data
+## Download ParaHome Data
 ```
 mkdir data
 ```  
@@ -64,10 +75,10 @@ Each data represents
 - body_global_transform.pkl : Transform between body-centered coordinate and global coordinate system
 - metadata.json : Mapping between capture participants to each sequence
 
-### Environment Setting
+## Environment Setting
 Check out [install.md](./install.md)
 
-### Visualize Demo files
+## Visualize Demo files
 To visualize the demo parahome data, select sequence path in the data/seq directory and execute the command 
 ```
 cd visualize
