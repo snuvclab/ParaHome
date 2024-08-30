@@ -15,11 +15,13 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 ## Characteristics
 - Total <b>486</b> minutes, <b>207</b> sequences from <b>38</b> subjects!
+- Scanned, parameterized <b>22</b> Objects
 - Human Objects Interaction in a <b>natural room setting.</b>
 - Dexterous hand manipulation and body motion data.
 - Interaction with <b>multiple articulated</b> objects.
 - Capture <b>natural sequential</b> manipulation scenes.
 - <b>Text annotations</b> for each action
+
   
 
   
