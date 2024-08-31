@@ -86,6 +86,7 @@ To visualize the demo parahome data, select sequence path in the data/seq direct
 cd visualize
 python render.py --scene_root data/seq/s1
 ```
+- Our rendering code supports an egocentric option. Use the egocentric rendering with `--ego` option.
 
 
 
