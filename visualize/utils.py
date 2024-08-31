@@ -203,7 +203,7 @@ def get_stickhand(hand_arr, conn=None, color=[0.4, 0.4, 0.4]):
     return mesh
 
 
-def get_stickman(body_position_arr, head_tip, color=[0.4, 0.4, 0.4], foot_contact=None):
+def get_stickman(body_position_arr, head_tip=None, color=[0.4, 0.4, 0.4], foot_contact=None):
     body_line_idxs_int = [[0, 1], [0, 15], [0, 19], [1, 2], [2, 4], [4, 5], [4, 7], [4, 11], [5, 6], 
                           [7, 8], [8, 9], [9, 10], [11, 12], [12, 13], [13, 14], [15, 16], [16, 17], 
                           [17, 18], [19, 20], [20, 21], [21, 22]]
@@ -233,7 +233,7 @@ def get_stickman(body_position_arr, head_tip, color=[0.4, 0.4, 0.4], foot_contac
         return mesh
     body_mesh = o3d.geometry.TriangleMesh()
     for bidx in range(23):
-        if bidx == 6: # jC1Head
+        if bidx == 6 and head_tip is not None: # jC1Head
             body_mesh += get_segment(body_position_arr[6], head_tip, 0.08, color)
         elif bidx in [12,8,15,19]: # 'jLeftShoulder','jRightShoulder','jRightHip','jLeftHip'
             body_mesh += get_sphere(body_position_arr[bidx], 0.03, color)
@@ -272,9 +272,15 @@ class simpleViewer(object):
         self.main_vis.show_settings = False
         self.main_vis.show_skybox(False)   
         app.add_window(self.main_vis)
+
+        if view is not None:
+            self.intrinsic = view.intrinsic
     
     def export_view(self):
         return self.curview
+    
+    def setupcamera(self, extrinsic_matrix):
+        self.main_vis.setup_camera(self.intrinsic, extrinsic_matrix)
 
     def tick(self):
         app = o3d.visualization.gui.Application.instance

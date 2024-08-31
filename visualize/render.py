@@ -21,6 +21,7 @@ if __name__ == "__main__":
     parser.add_argument("--end_frame", default=100000, type=int, help="Render end frame number")
     parser.add_argument("--run", default=False, action='store_true', help='If set, viewer will show start_frame scene at specific view')
     parser.add_argument("--fromort", default=False, action='store_true', help='Make skeleton from orientation, transform to ')
+    parser.add_argument("--ego", action='store_true')
 
     args = parser.parse_args()
     
@@ -51,6 +52,12 @@ if __name__ == "__main__":
         joint_rgb = np.einsum('FMN, FJN->FJM',body_global_trans[:,:3,:3], joint_root_fixed) + body_global_trans[:, :3, 3][:,None,:]
     else:
         joint_rgb = pickle.load(open(root + "/joint_positions.pkl", "rb"))
+        
+        if args.ego:
+            body_global_trans = pickle.load(open(root + "/body_global_transform.pkl", "rb"))
+            body_ort = pickle.load(open(root + "/body_joint_orientations.pkl", "rb"))
+            body_rotmat = rotation_6d_to_matrix(torch.tensor(body_ort)).numpy()   
+
 
     
     frame_length = joint_rgb.shape[0]
@@ -76,7 +83,22 @@ if __name__ == "__main__":
                 mesh_dict[keyn] = m
 
 
-    vis = simpleViewer("Render Scene", 1600, 800, [], None) # 
+    # make camera parameters
+    width, height = 1600, 800
+    if args.ego:
+        view = o3d.camera.PinholeCameraParameters()
+        camera_matrix = np.eye(3, dtype=np.float64)
+        f = 520
+        camera_matrix[0,0] = f
+        camera_matrix[1,1] = f
+        camera_matrix[0,2] = width/2
+        camera_matrix[1,2] = height/2
+        view.intrinsic.intrinsic_matrix = camera_matrix
+        view.intrinsic.width, view.intrinsic.height = width, height
+    else:
+        view=None
+
+    vis = simpleViewer("Render Scene", 1600, 800, [], view) # 
 
     global_coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=0.2)
     vis.add_geometry({"name":"global", "geometry":global_coord})    
@@ -92,7 +114,7 @@ if __name__ == "__main__":
         
         cur_object_pose = object_transform[fn]
         
-        bmesh = get_stickman(cur_human_joints[:23], head_tip_position[fn])
+        bmesh = get_stickman(cur_human_joints[:23], head_tip_position[fn] if not args.ego else None)
         hmesh = get_stickhand(cur_human_joints[23:48]) + get_stickhand(cur_human_joints[48:])# hand
         bmesh.compute_vertex_normals()
         hmesh.compute_vertex_normals()
@@ -114,6 +136,17 @@ if __name__ == "__main__":
                 continue
         if fn == args.start_frame:
             vis.main_vis.reset_camera_to_default()
+
+        if args.ego:
+            head_posinrgb = cur_human_joints[5]
+            head_rotinrgb = body_global_trans[fn,:3,:3]@body_rotmat[fn, 6]
+            # Change Axis Directions 
+            head_rotinrgb = np.stack([-head_rotinrgb[:,1],-head_rotinrgb[:,2],head_rotinrgb[:,0]],axis=1)
+            head_Trgb = np.eye(4, dtype=np.float64)
+            head_Trgb[:3,:3] = head_rotinrgb
+            head_Trgb[:3,3] = head_posinrgb
+            extrinsic_matrix = np.linalg.inv(head_Trgb)
+            vis.setupcamera(extrinsic_matrix)
 
         if args.run:
             vis.run()        
