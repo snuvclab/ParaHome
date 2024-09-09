@@ -37,7 +37,7 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 mkdir data
 ```  
 scan : https://drive.google.com/file/d/1-OuWvVFOFCEhut7J2t1kNbr5jv78QNFP/view?usp=sharing  
-seq : https://drive.google.com/file/d/1-P5sz_IBjSKr4fxt6KygicxTLJ772Z4j/view?usp=sharing   
+seq : https://drive.google.com/file/d/1X82axpgQAugrq9nBEq6qLJc7MIbbNGby/view?usp=sharing   
 demo : https://drive.google.com/file/d/1hx3p3uOLEmGoCsaZ_x5ibffuX4zLiq6s/view?usp=sharing  
 metadata : https://drive.google.com/file/d/1jPRCsotiep0nElHgyLQNjlkHsWgHbjhi/view?usp=sharing
   
