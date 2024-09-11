@@ -109,7 +109,3 @@ python render.py --scene_root data/seq/s1
 The ParaHome Dataset is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en) and is intended for non-commercial academic use. By using the dataset and its associated software, you agree to cite the relevant paper in any publications resulting from your use of these resources.
 
 
-
-### Acknowledgement
-This work was supported by Samsung Electronics MX Division, NRF grant funded by the Korean government (MSIT) (No. 2022R1A2C2092724 and No. RS-2023-00218601), and IITP grant funded by the Korean government (MSIT) (No.2021-0-01343). H. Joo is the corresponding author.
-
