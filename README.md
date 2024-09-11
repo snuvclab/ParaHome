@@ -1,4 +1,4 @@
-# :house_with_garden: ParaHome  
+# :house_with_garden: SNU ParaHome  
 > ParaHome: Parameterizing Everyday Home Activities Towards 3D Generative Modeling of Human-Object Interactions (arXiv 2024)  
 > [Jeonghwan Kim*](https://canoneod.github.io/), [Jisoo Kim*](https://jlogkim.github.io/), [Jeonghyeon Na](https://nagooon.github.io/), [Hanbyul Joo](https://jhugestar.github.io/)  
 \[[Project Page](https://jlogkim.github.io/parahome/)\] \[[Paper](https://arxiv.org/pdf/2401.10232.pdf)\] \[[Supp. Video](https://www.youtube.com/embed/HeXqiK0eGec?si=mtAmctx0JHHYD6Ac)\]
@@ -90,6 +90,9 @@ python render.py --scene_root data/seq/s1
 
 
 
+---
+
+
 ### Citation
 ```
 @misc{kim2024parahome,
@@ -101,6 +104,10 @@ python render.py --scene_root data/seq/s1
       primaryClass={cs.CV}
 }
 ```
+
+### License
+The ParaHome Dataset is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en) and is intended for non-commercial academic use. By using the dataset and its associated software, you agree to cite the relevant paper in any publications resulting from your use of these resources.
+
 
 
 ### Acknowledgement
