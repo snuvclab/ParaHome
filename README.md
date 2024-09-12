@@ -13,7 +13,7 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 - 2024.08.29: 🎉 ParaHome dataset has been released! 🎉
 - 2024.05.01: ParaHome demo data is available!
 
-## Characteristics
+## Summary
 - Total <b>486</b> minutes, <b>207</b> sequences from <b>38</b> subjects!
 - Scanned, parameterized <b>22</b> Objects
 - Human Objects Interaction in a <b>natural room setting.</b>
