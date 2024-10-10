@@ -39,7 +39,7 @@ mkdir data
 scan : https://drive.google.com/file/d/1-OuWvVFOFCEhut7J2t1kNbr5jv78QNFP/view?usp=sharing  
 seq : https://drive.google.com/file/d/10MYSSM2H7f6g2n9nnXta48qmAhZ7r4yd/view?usp=sharing  
 demo : https://drive.google.com/file/d/1hx3p3uOLEmGoCsaZ_x5ibffuX4zLiq6s/view?usp=sharing  
-metadata : https://drive.google.com/file/d/1jPRCsotiep0nElHgyLQNjlkHsWgHbjhi/view?usp=sharing
+metadata : https://drive.google.com/file/d/1jPRCsotiep0nElHgyLQNjlkHsWgHbjhi/view?usp=sharing  
 joint_info : https://drive.google.com/file/d/15fGnZn8o4I2bzQtQF-9MliwxKc2IUdzI/view?usp=sharing  
 
 Unzip and move scan, seq directories into `data` directory
