@@ -4,7 +4,7 @@
 \[[Project Page](https://jlogkim.github.io/parahome/)\] \[[Paper](https://arxiv.org/pdf/2401.10232.pdf)\] \[[Supp. Video](https://www.youtube.com/embed/HeXqiK0eGec?si=mtAmctx0JHHYD6Ac)\]
 
 <p align="center">    
-    <img src="assets/teaser.jpg" alt="Image" width="100%"/>
+    <img src="assets/teaser.png" alt="Image" width="100%"/>
 </p>
 This is a repository of the ParaHome system. Our system is designed to capture human-object interaction in a natural home environment. We parameterized all 3D movements of body, hands, and objects and captured large-scale dataset for human-object interaction.
 
