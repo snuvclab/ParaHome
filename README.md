@@ -10,6 +10,7 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 
 ## News
+- 2025.01.21: SMPL-X pose/shape parameters released!  
 - 2024.08.29: 🎉 ParaHome dataset has been released! 🎉
 - 2024.05.01: ParaHome demo data is available!
 
@@ -41,6 +42,7 @@ seq : https://drive.google.com/file/d/10MYSSM2H7f6g2n9nnXta48qmAhZ7r4yd/view?usp
 demo : https://drive.google.com/file/d/1hx3p3uOLEmGoCsaZ_x5ibffuX4zLiq6s/view?usp=sharing  
 metadata : https://drive.google.com/file/d/1jPRCsotiep0nElHgyLQNjlkHsWgHbjhi/view?usp=sharing  
 joint_info : https://drive.google.com/file/d/15fGnZn8o4I2bzQtQF-9MliwxKc2IUdzI/view?usp=sharing  
+smplx_seq : https://drive.google.com/file/d/1Zzj-umCtpcU4QmI4vSjlPShOSHL5sZMX/view?usp=sharing  
 
 Unzip and move scan, seq directories into `data` directory
 ```
