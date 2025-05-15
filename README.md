@@ -10,6 +10,7 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 
 ## News
+- 2025.05.15: SMPL-L rendering option is updated!  
 - 2025.01.21: SMPL-X pose/shape parameters released!  
 - 2024.08.29: 🎉 ParaHome dataset has been released! 🎉
 - 2024.05.01: ParaHome demo data is available!
@@ -22,11 +23,6 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 - Interaction with <b>multiple articulated</b> objects.
 - Capture <b>natural sequential</b> manipulation scenes.
 - <b>Text annotations</b> for each action
-
-  
-
-  
-
 
 ## Important Notes
 - The text descriptions for each action are formatted into the `text_annotation.json` file located within each scene directory.
@@ -90,7 +86,7 @@ cd visualize
 python render.py --scene_root data/seq/s1
 ```
 - Our rendering code supports an egocentric option. Use the egocentric rendering with `--ego` option.
-
+- Our code also supports SMPL-X rendering option. Run the rendering with `--smplx` option.
 
 
 ---
