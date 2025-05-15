@@ -14,6 +14,9 @@ from utils import makeTpose, rotation_6d_to_matrix, BodyMaker, HandMaker, \
 
 SCAN_ROOT = os.path.join(ROOT_REPOSITORY, "data/scan")
 
+import torch
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--scene_root", default="data/seq/s01", help="target path, e.g : ")
@@ -22,6 +25,7 @@ if __name__ == "__main__":
     parser.add_argument("--run", default=False, action='store_true', help='If set, viewer will show start_frame scene at specific view')
     parser.add_argument("--fromort", default=False, action='store_true', help='Make skeleton from orientation, transform to ')
     parser.add_argument("--ego", action='store_true')
+    parser.add_argument("--smplx", action='store_true')
 
     args = parser.parse_args()
     
@@ -59,7 +63,34 @@ if __name__ == "__main__":
             body_rotmat = rotation_6d_to_matrix(torch.tensor(body_ort)).numpy()   
 
 
-    
+    if args.smplx:
+        import smplx
+        smplroot =  root.replace('seq','smplx_seq')
+        SMPLX_MODEL_PATH = '/home/jisoo/data2/git_repo/smplx/transfer_data/models'
+
+        smplx_params = pickle.load(open(smplroot + "/smplx_params.pkl", "rb"))
+        smplx_pose = pickle.load(open(smplroot + "/smplx_pose.pkl", "rb"))
+
+        smplx_beta, gender = smplx_params['beta'].to(device), smplx_params['gender']
+        body_pose = smplx_pose['body_pose'].reshape((-1,21,3)).to(device)
+        global_orient = smplx_pose['global_orient'].to(device)
+        transl = smplx_pose['transl'].to(device)
+        hand_pose = smplx_pose['hand_pose'].reshape((-1,30,3)).to(device)
+        lhand_pose = hand_pose[:,:15,:].to(device)
+        rhand_pose = hand_pose[:,15:,:].to(device)
+
+        body_model = smplx.create(model_path = SMPLX_MODEL_PATH,
+                        model_type = "smplx",
+                        flat_hand_mean=True,
+                        use_pca=False,
+                        num_betas = 20,
+                        num_expression_coeffs = 10,
+                        gender=gender,
+                        ext='pkl').to(device)
+
+        smplx_faces = body_model.faces
+
+
     frame_length = joint_rgb.shape[0]
 
     os.path.dirname(__file__)
@@ -113,13 +144,35 @@ if __name__ == "__main__":
         cur_human_joints = joint_rgb[fn]
         
         cur_object_pose = object_transform[fn]
-        
-        bmesh = get_stickman(cur_human_joints[:23], head_tip_position[fn] if not args.ego else None)
-        hmesh = get_stickhand(cur_human_joints[23:48]) + get_stickhand(cur_human_joints[48:])# hand
-        bmesh.compute_vertex_normals()
-        hmesh.compute_vertex_normals()
-        
-        vis.add_geometry({"name":"human", "geometry":bmesh+hmesh})
+
+        if args.smplx:
+            output_glb = body_model(betas=smplx_beta,
+                    return_verts=True,
+                    body_pose = body_pose[fn:fn+1], # 1X21X3
+                    left_hand_pose = lhand_pose[fn:fn+1], #1X15X3
+                    right_hand_pose = rhand_pose[fn:fn+1],#1X15X3
+                    global_orient = global_orient[fn:fn+1], #1X3
+                    transl = transl[fn:fn+1] #+ tl,
+                    )
+            verts_glb = output_glb.vertices[0]#*body_scale
+            jts_glb = output_glb.joints[0]
+
+            bmesh = o3d.geometry.TriangleMesh()
+            bmesh_vertices = verts_glb.detach().cpu().numpy()
+            bmesh.vertices = o3d.utility.Vector3dVector(bmesh_vertices)
+            bmesh.triangles = o3d.utility.Vector3iVector(smplx_faces)
+            bmesh.compute_vertex_normals()
+            bmesh.paint_uniform_color([0.4,0.4,0.4])
+
+            vis.add_geometry({"name":"human", "geometry":bmesh})
+        else:
+            bmesh = get_stickman(cur_human_joints[:23], head_tip_position[fn] if not args.ego else None)
+            hmesh = get_stickhand(cur_human_joints[23:48]) + get_stickhand(cur_human_joints[48:])# hand
+            bmesh.compute_vertex_normals()
+            hmesh.compute_vertex_normals()
+
+            vis.add_geometry({"name":"human", "geometry":bmesh+hmesh})
+
 
         # category 별로 나눠서 보기
         for inst_name, loaded in initialized.items():
