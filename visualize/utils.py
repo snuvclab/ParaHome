@@ -1,9 +1,10 @@
 import torch
 import torch.nn as nn
-from pytorch3d.transforms import rotation_6d_to_matrix
 
 import open3d as o3d
 import numpy as np
+
+from rotation_conversions import rotation_6d_to_matrix
 
 
 body_order = {'pHipOrigin': 0,
