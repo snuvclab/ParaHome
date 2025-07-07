@@ -4,13 +4,15 @@ import os
 import json
 import pickle
 import argparse
+import copy
 import torch
 from pathlib import Path
 import open3d as o3d
 import numpy as np
 
 from utils import makeTpose, rotation_6d_to_matrix, BodyMaker, HandMaker, \
-                    simpleViewer, get_stickman, get_stickhand
+                    simpleViewer, get_stickman, get_stickhand,\
+                    ContactViewer, compute_sdf, visualize_contact, get_textannot, get_annotation, annot2item
 
 SCAN_ROOT = os.path.join(ROOT_REPOSITORY, "data/scan")
 
@@ -19,20 +21,23 @@ device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--scene_root", default="data/seq/s01", help="target path, e.g : ")
+    parser.add_argument("--scene_root", default="data/seq/s1", help="target path, e.g : ")
     parser.add_argument("--start_frame", default=0, type=int, help="Render start frame number") 
     parser.add_argument("--end_frame", default=100000, type=int, help="Render end frame number")
     parser.add_argument("--run", default=False, action='store_true', help='If set, viewer will show start_frame scene at specific view')
     parser.add_argument("--fromort", default=False, action='store_true', help='Make skeleton from orientation, transform to ')
     parser.add_argument("--ego", action='store_true')
     parser.add_argument("--smplx", action='store_true')
+    parser.add_argument("--contact_tgs",type=str,nargs='+', default=[])
 
     args = parser.parse_args()
     
     root = os.path.join(ROOT_REPOSITORY, args.scene_root)
     camera_dir = root + "/cam_param"
 
-    
+    annot_path = root+"/text_annotation.json"
+    text_annot = get_textannot(annot_path)    
+
     head_tip_position = pickle.load(open(root + "/head_tips.pkl", "rb"))
     if args.fromort:
         bone_vector = pickle.load(open(root + "/bone_vectors.pkl", "rb"))
@@ -99,7 +104,7 @@ if __name__ == "__main__":
 
     
     print("------Reading Objects------")
-    initialized, mesh_dict = dict(), dict()
+    initialized, mesh_dict, mesh_dict_copied = dict(), dict(), dict()
     obj_in_scene = json.load(open(Path(root, "object_in_scene.json"), "r"))
     # load_object
     for objn in obj_in_scene:
@@ -112,6 +117,7 @@ if __name__ == "__main__":
                 m.paint_uniform_color(obj_color[objn][pn])
                 m.compute_vertex_normals()
                 mesh_dict[keyn] = m
+                mesh_dict_copied[keyn] = copy.deepcopy(m)
 
 
     # make camera parameters
@@ -130,6 +136,32 @@ if __name__ == "__main__":
         view=None
 
     vis = simpleViewer("Render Scene", 1600, 800, [], view) # 
+
+    mesh_viewer_dict = {}
+    if len(args.contact_tgs)>0:
+        if args.smplx:
+            output_glb = body_model()
+            # Extract T-Posed Body Mesh
+            verts_glb = output_glb.vertices[0]#*body_scale
+            jts_glb = output_glb.joints[0]
+
+            bmesh = o3d.geometry.TriangleMesh()
+            bmesh_vertices = verts_glb.detach().cpu().numpy()
+            bmesh.vertices = o3d.utility.Vector3dVector(bmesh_vertices)
+            bmesh.triangles = o3d.utility.Vector3iVector(smplx_faces)
+            bmesh.compute_vertex_normals()
+            bmesh.paint_uniform_color([0.4,0.4,0.4])
+            
+            mesh_viewer_dict['body'] = ContactViewer('body',512,512,bmesh)
+            mesh_viewer_dict['body_backward'] = ContactViewer('body_backward',512,512,bmesh)
+            mesh_viewer_dict['lhand'] = ContactViewer('lhand',512,512,bmesh)
+            mesh_viewer_dict['rhand'] = ContactViewer('rhand',512,512,bmesh)
+
+            for obj_nm in args.contact_tgs:
+                mesh_viewer_dict[obj_nm] = ContactViewer(obj_nm,512,512,mesh_dict[f'{obj_nm}_base'])
+
+        else:
+            print("You should use smplx rendering to compute contact")
 
     global_coord = o3d.geometry.TriangleMesh().create_coordinate_frame(size=0.2)
     vis.add_geometry({"name":"global", "geometry":global_coord})    
@@ -174,7 +206,6 @@ if __name__ == "__main__":
             vis.add_geometry({"name":"human", "geometry":bmesh+hmesh})
 
 
-        # category 별로 나눠서 보기
         for inst_name, loaded in initialized.items():
             if loaded and inst_name in cur_object_pose:
                 vis.transform(inst_name, cur_object_pose[inst_name])
@@ -190,6 +221,35 @@ if __name__ == "__main__":
         if fn == args.start_frame:
             vis.main_vis.reset_camera_to_default()
 
+
+        annot = get_annotation(text_annot, fn)
+        if annot is not None:
+            interacting_objects = annot2item[annot]
+        else:
+            interacting_objects = []
+
+        # Compute & Visualize Contact
+        body_contacts = []
+        for obj_nm in args.contact_tgs:
+            if obj_nm in interacting_objects:
+                # compute SDF using body mesh
+                if f'{obj_nm}_base' in cur_object_pose:
+                    transferred_objmesh = copy.deepcopy(mesh_dict_copied[f'{obj_nm}_base']).transform(cur_object_pose[f'{obj_nm}_base'])
+                    body_contact = compute_sdf(bmesh, transferred_objmesh) # bmesh's contact to transferred objmesh
+                    obj_contact = compute_sdf(transferred_objmesh, bmesh)
+                    obj_color =  visualize_contact(obj_contact)
+                    mesh_viewer_dict[obj_nm].update_color(obj_color)
+                    body_contacts.append(body_contact)
+
+        # Get Minimum of body
+        if len(body_contacts)>0:
+            # print("combine body ")
+            body_contact = np.min(np.stack(body_contacts), axis=0)
+            body_color =  visualize_contact(body_contact)
+            for body_component in ['body','body_backward','lhand','rhand']:
+                mesh_viewer_dict[body_component].update_color(body_color)
+
+                
         if args.ego:
             head_posinrgb = cur_human_joints[5]
             head_rotinrgb = body_global_trans[fn,:3,:3]@body_rotmat[fn, 6]

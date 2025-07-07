@@ -1,10 +1,11 @@
 import torch
 import torch.nn as nn
 from pytorch3d.transforms import rotation_6d_to_matrix
-
+import json
+import os
 import open3d as o3d
 import numpy as np
-
+from matplotlib import pyplot as plt
 
 body_order = {'pHipOrigin': 0,
  'jL5S1': 1,
@@ -348,3 +349,91 @@ class simpleViewer(object):
     def run(self):
         app = o3d.visualization.gui.Application.instance
         app.run()
+        
+
+class ContactViewer(object):
+    def __init__(self, title, width, height, mesh):
+        self.main_vis = o3d.visualization.Visualizer()
+        self.main_vis.create_window(visible=True, width=width, height=height)
+
+        self.opt = self.main_vis.get_render_option()
+        self.opt.mesh_shade_option = o3d.visualization.MeshShadeOption.Color
+        self.opt.line_width = 0.1
+        self.opt.point_size = 2.0
+        self.reset_flag = True
+        self.main_vis.add_geometry(mesh)
+        self.mesh = mesh
+
+        self.main_vis.run()
+
+    def update_color(self, colors):
+        self.mesh.vertex_colors = o3d.utility.Vector3dVector(colors)
+        self.main_vis.update_geometry(self.mesh)
+        self.main_vis.poll_events()
+        self.main_vis.update_renderer()
+
+    def tick(self):
+        self.main_vis.poll_events()
+        self.main_vis.update_renderer()
+
+    def add_geometry(self, name, geometry):
+        self.mesh_dict[name] = geometry
+        self.main_vis.add_geometry(self.mesh_dict[name])
+
+    def remove_byname(self, name):
+        if name in self.mesh_dict:
+            self.main_vis.remove_geometry(self.mesh_dict[name])
+            self.mesh_dict.pop(name)
+
+    def remove_geometries(self):
+        key_list = list(self.mesh_dict.keys())
+        for nm in key_list:
+            if nm in self.mesh_dict:
+                self.main_vis.remove_geometry(self.mesh_dict[nm])
+                self.mesh_dict.pop(nm)
+
+    def render_image(self, render_img_path):
+        self.main_vis.capture_screen_image(render_img_path, True)
+    
+    def run(self):
+        self.main_vis.run()
+
+
+def compute_sdf(mesh1, mesh2):
+    from pysdf import SDF
+    sdf_field = SDF(np.asarray(mesh2.vertices), np.asarray(mesh2.triangles))
+    sdf_values = -sdf_field(np.asarray(mesh1.vertices))
+
+    return  sdf_values 
+
+
+def visualize_contact(sdf_values=None, min_bound=-0.01, threshold=0.05):
+    sdf_values[sdf_values>threshold]=threshold
+    sdf_values+=(-min_bound)
+    sdf_normalized = np.clip(sdf_values/threshold, 0, 1)
+    cmap = plt.get_cmap('jet').reversed()
+    colors = cmap(sdf_normalized)[:, :3]  
+    return colors
+
+
+def get_textannot(annot_file_path):
+    assert os.path.exists(annot_file_path), 'Should Check the file path'
+    tmp_annot = json.load(open(annot_file_path,'r'))
+    parsed_annot = {}
+    for range_str in tmp_annot:
+        st,ed = range_str.split(" ")
+        st, ed = int(st), int(ed)
+        parsed_annot[(st,ed)] = tmp_annot[range_str]
+        
+    return parsed_annot
+
+
+def get_annotation(annotation, fn):
+    for range_split in annotation:
+        if fn>=range_split[0] and fn<=range_split[1]:
+            return annotation[range_split]
+    return None
+
+from pathlib import Path
+annot2item = json.load(open(Path(__file__).parent.parent/'data'/'annot2item.json'))
+
