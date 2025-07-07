@@ -10,7 +10,8 @@ This is a repository of the ParaHome system. Our system is designed to capture h
 
 
 ## News
-- 2025.05.15: SMPL-L rendering option is updated!  
+- 2025.07.07: Contact computation between meshes is now available!
+- 2025.05.15: SMPL-X rendering option is updated!  
 - 2025.01.21: SMPL-X pose/shape parameters released!  
 - 2024.08.29: 🎉 ParaHome dataset has been released! 🎉
 - 2024.05.01: ParaHome demo data is available!
